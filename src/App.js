@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import MapAndMarkers from './MapAndMarkers.js'
 
 const API = 'https://sheets.googleapis.com/v4/spreadsheets/1mpFIiSlkqU0BQmn5la3nEwkmy3QJUR8SvkaCHJmm6zk/values:batchGet?ranges=Sheet1&majorDimension=ROWS&key=AIzaSyBNTDOtaFrsIMbKsIJ_E3CxKaTwf0tCaW8';
 
@@ -10,7 +11,9 @@ class App extends Component {
     super();
 
     this.state = {
-     items:[]
+     items:[],
+     center: { lat: 37.8254957, lng: -122.4995417 },
+     zoom: 10,
     };
 
   }
@@ -38,13 +41,12 @@ class App extends Component {
 
 
   render() {
-    const listItems = this.state.items.map((item) =>
-    <li>{item.name} at Latitute {item.lat} and Longitude {item.lng} </li>
-  );
+
+
 
     return (
       <div>
-         <ul>{listItems}</ul>
+         <MapAndMarkers markers={this.state.items} zoom={this.state.zoom} center={this.state.center} />
       </div>
     );
   }
